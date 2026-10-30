@@ -37,3 +37,36 @@ Laravel 12 app for voter lists, admin PDF import, and voter e-slips (View / Prin
 ## Admin
 
 - Admin login at `/admin/login`. PDF uploads are under `/admin/pdf-imports/create`.
+
+## Deploy to server
+
+1. Copy the project folder to the server (the `public/` folder must be the web root).
+2. Install PHP dependencies without dev packages:
+   ```
+   composer install --no-dev --optimize-autoloader
+   composer require mpdf/mpdf:^8.2
+   ```
+3. Create `.env` from `.env.example`, set `APP_ENV=production`, `APP_DEBUG=false`, your `APP_URL`, and the database settings. Then run:
+   ```
+   php artisan key:generate
+   ```
+4. Make these folders writable by the web server user: `storage/` and `bootstrap/cache/`.
+5. Copy the Hindi font into `storage/fonts/`:
+   `storage/fonts/NotoSansDevanagari-Regular.ttf` (download from Google Fonts, or copy from `Noto_Sans_Devanagari/static/` if it is in the project).
+6. Run the database steps:
+   ```
+   php artisan migrate --force
+   php artisan db:seed --class=WardOneVoterSeeder --force
+   ```
+7. Clear caches:
+   ```
+   php artisan optimize:clear
+   php artisan config:cache
+   php artisan route:cache
+   ```
+8. Point the web server (Apache/Nginx) document root at the `public/` folder.
+9. Check `https://your-domain/voter-search?epic=IED1540749`, then the View E-Slip and Print Slip buttons, and `https://your-domain/voter-slips?ward=1&page=1`.
+
+Notes:
+- Keep `.env` out of git. It holds the database password and `APP_KEY`.
+- The seeder can be run again safely. It updates existing rows rather than duplicating them.

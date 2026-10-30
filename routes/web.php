@@ -37,6 +37,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
 Route::get('/voter-search', [VoterSlipController::class, 'search'])
     ->name('voter.search');
 
+Route::get('/voter-slips', [VoterSlipController::class, 'sheet'])
+    ->name('voter.sheet');
+
 Route::get('/voters/{voter}/slip', [VoterSlipController::class, 'slip'])
     ->name('voter.slip');
 
