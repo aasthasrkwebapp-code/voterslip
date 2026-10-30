@@ -23,7 +23,7 @@ class WardOneVoterSeeder extends Seeder
     public function run(): void
     {
         $election = Election::firstOrCreate(
-            ['name' => 'Shahjahanpur Gram Panchayat Election 2026'],
+            ['name' => 'Shahjahanpur Gram Panchayat 2026'],
             [
                 'election_type' => 'Panchayat',
                 'district' => 'Kotputli-Behror',
