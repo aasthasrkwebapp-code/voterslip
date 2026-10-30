@@ -24,6 +24,19 @@
 <body>
 
 <div class="container py-4" style="max-width: 420px">
+    <div class="card p-3 mb-4">
+        <label class="form-label fw-semibold">Ward 1 – 8 slips per page (A4)</label>
+        <form method="GET" action="{{ route('voter.sheet') }}" class="input-group">
+            <input type="hidden" name="ward" value="1">
+            <select name="page" class="form-select">
+                @for($page = 1; $page <= $pageCount; $page++)
+                    <option value="{{ $page }}">Page {{ $page }}</option>
+                @endfor
+            </select>
+            <button class="btn btn-outline-warning" type="submit">Open page PDF</button>
+        </form>
+    </div>
+
     <form method="GET" action="{{ route('voter.search') }}" class="mb-4">
         <label class="form-label fw-semibold">Voter ID (EPIC)</label>
         <div class="input-group">
