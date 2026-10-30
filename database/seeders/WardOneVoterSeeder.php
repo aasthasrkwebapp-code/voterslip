@@ -22,15 +22,13 @@ class WardOneVoterSeeder extends Seeder
 
     public function run(): void
     {
-        $election = Election::firstOrCreate(
-            ['name' => 'Shahjahanpur Gram Panchayat 2026'],
+        $election = Election::updateOrCreate(
+            ['district' => 'Kotputli-Behror', 'panchayat_samiti' => 'Neemrana', 'year' => 2026],
             [
+                'name' => 'Panchayat Samiti Neemrana, Dist. Kotputli Behror',
                 'election_type' => 'Panchayat',
-                'district' => 'Kotputli-Behror',
-                'panchayat_samiti' => 'Neemrana',
                 'gram_panchayat' => 'Shahjahanpur',
                 'assembly_constituency' => '61-Mundawar',
-                'year' => 2026,
                 'is_active' => true,
             ]
         );
